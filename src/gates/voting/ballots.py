@@ -176,3 +176,17 @@ def assert_condorcet_ballot(group: Group, ballot: List[List[Wire]]) -> None:
         assertgates.assert_bit(sum([value_i_j,value_j_i]))
         ind_false = bitgates.and_gate(group,[check_matrix_i_j,check_matrix_j_k,1-check_matrix_i_k])
         assertgates.assert_equal(group, [ind_false], [group.gen(0)])
+
+def assert_majority_judgment_ballot(group: Group, ballot: List[List[Wire]]) -> None:
+    """
+    Asserts a Majority Judgment ballot (a 0/1 matrix with exactly one 1 in each row).
+
+    :param group: The underlying group
+    :type group: Group
+    :param ballot: The ballot
+    :type ballot: List[List[Wire]]
+    :raises ValueError: Raised if the ballot does not verify.
+    """
+
+    for row in ballot:
+        assert_single_vote(group,row)
